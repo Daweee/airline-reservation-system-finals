@@ -31,7 +31,9 @@
                         <td><?= $result->departure_date ?></td>
                         <td><?= ($result->return_date !== '0000-00-00') ? $result->return_date : "NULL" ?></td>
                         <td><?= $result->flight_type ?></td>
-                        <td><button onclick="pickFlight(<?= $result->flight_id ?>)">Select</button></td>
+                        <td>
+                            <input type="radio" name="selectedFlight" value="<?= $result->flight_id ?>" onclick="pickFlight(<?= $result->flight_id ?>)">
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
