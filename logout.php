@@ -20,4 +20,5 @@ if (ini_get("session.use_cookies")) {
 
 session_destroy();
 
-Url::redirect('/Airline%20Reservation%20System/');
+header('Location: index.php');
+exit;

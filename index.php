@@ -7,6 +7,7 @@ $conn = require 'includes/db.php';
 ?>
 
 <?php require 'includes/header.php'; ?>
+<link rel="stylesheet" type="text/css" href="css/index.css">
 
 <?php if (Auth::isLoggedIn()) : ?>
 	<p>You are logged in. <a href="logout.php">Log out</a></p>
@@ -19,7 +20,7 @@ $conn = require 'includes/db.php';
 $flight = new Flights();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	
+
 	$conn = require 'includes/db.php';
 
 	$flight->userAdults = isset($_POST['adults']) ? $_POST['adults'] : '';
@@ -35,17 +36,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (!$searchResults) {
 		$totalPersons = $flight->addPeople($conn);
 	}
-	
 }
 
 ?>
 
 <?php require 'includes/flight-form.php'; ?>
 
-<?php if (!empty($searchResults)): ?>
-		<?php require 'includes/search-result.php'; ?>	
-	<?php else: ?>
-		<h3>No Results Found</h3>
+<?php if (!empty($searchResults)) : ?>
+	<?php require 'includes/search-result.php'; ?>
+<?php else : ?>
+	<h3>No Results Found</h3>
 <?php endif; ?>
 
 <?php require 'includes/footer.php'; ?>
