@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
     <header>
+
 		<h1>Results:</h1>
 	</header>
 	<main>
     <form action="/airline-reservation-system-finals/includes/guest-details.php" method="post" onsubmit="return validateForm();">
+
         <table>
             <thead>
                 <tr>
@@ -23,23 +27,28 @@
                 </tr>
             </thead>
             <tbody>
+
                 <?php if ($searchResults !== null && count($searchResults) > 0): ?>
                     <?php foreach ($searchResults as $result): ?>
+
                         <tr>
                             <td><?= $result->flight_id ?></td>
                             <td><?= $result->origin ?></td>
                             <td><?= $result->destination ?></td>
                             <td><?= $result->departure_date ?></td>
+
                             <td><?= ($result->return_date !== null) ? $result->return_date : "NULL" ?></td>
                             <td><?= $result->flight_type ?></td>
                             <td>
                                 <input type="radio" name="selectedFlight" value="<?= $result->flight_id ?>">
+
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </tbody>
         </table>
+
             <label for="agreementCheckbox">
                 <input type="checkbox" id="agreementCheckbox"> I accept the agreement
             </label>
@@ -66,4 +75,5 @@
 }
 </script>
 
-<?php require 'includes/footer.php'; ?>
+
+        <?php require '../includes/footer.php'; ?>
