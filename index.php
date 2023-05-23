@@ -31,10 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$flight->userDepartDate = isset($_POST['depart']) ? $_POST['depart'] : '';
 	$flight->userReturnDate = isset($_POST['return']) ? $_POST['return'] : '';
 
+	$_SESSION['adults'] = $flight->userAdults;
+	$_SESSION['children'] = $flight->userChildren;
+	$_SESSION['infants'] = $flight->userInfants;
+
 	$searchResults = $flight->search($conn);
-	if (!$searchResults) {
-		$totalPersons = $flight->addPeople($conn);
-	}
+	
 	
 }
 

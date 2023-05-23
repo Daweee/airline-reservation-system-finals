@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $_SESSION['is_logged_in'] = true;
 
-        Url::redirect('/Airline%20Reservation%20System/');
+        Url::redirect('/airline-reservation-system-finals/');
 
     } else {
 
