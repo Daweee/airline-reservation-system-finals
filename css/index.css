@@ -36,7 +36,8 @@ header {
   }
   
   form label {
-    display: block;
+    display: flex;
+    align-items: center;
     margin-bottom: 10px;
     font-weight: bold;
   }
@@ -44,11 +45,19 @@ header {
   form input[type="text"],
   form input[type="date"],
   form select {
-    width: 100%;
+    width: 10%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+  }
+  
+  /* Add this CSS to center-align the form input */
+  form input[type="text"],
+  form input[type="date"],
+  form select {
+    margin-left: auto;
+    margin-right: auto;
   }
   
   form input[type="submit"] {
@@ -60,10 +69,11 @@ header {
     cursor: pointer;
   }
   
-  /* CSS for flight form layout */
+  /* CSS for form layout */
   .form-row {
     display: flex;
     margin-bottom: 10px;
+    align-items: center;
   }
   
   .form-row label {
@@ -81,58 +91,123 @@ header {
   }
   
   /* CSS for search results */
-  .results {
-    margin-top: 20px;
+  .main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.main h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* .b {
+  float: right;
+  margin-right: 920px;
+  max-width: 300px; /* Adjust the width as needed
+ } */
+
+
+
+
+ .text-block {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: rgb(2, 2, 2);
+  margin-left: 190px;
+  z-index: 1;
+}
+.text-block-2 {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: rgb(253, 253, 253);
+  margin-left: 10px;
+  z-index: 1;
+}
+
+ .bg-image-1{
+  background-image: url('../images/image2.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 600px;
+  width: 600px;
+  /* flex: auto; */
+   margin-right: 120px; 
+  float: right;
+  animation: bg-image 6s ease-in-out infinite;
+  z-index: 0;
+
+}
+.bg-image-2 {
+  background-image: url("../images/image1.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 600px;
+  width: 600px;
+  float: right;
+ margin-right: 150px; 
+  animation: bg-image 7s ease-in-out infinite;
+ z-index: 0;
+}
+
+
+.bg-image-1 .text-block {
+  left: 15%;
+}
+
+.bg-image-2 .text-block {
+  left: 50%;
+}
+@keyframes bg-image {
+  0% {
+    opacity: 0;
   }
-  
-  .results h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
+  10% {
+    opacity: 1;
   }
-  
-  .results p {
-    margin-bottom: 5px;
+  90% {
+    opacity: 1;
   }
-
-  .logged-in {
-    color: green;
-    font-weight: bold;
+  100% {
+    opacity: 0;
+  }
 }
-
-.guest {
-    color: red;
-    font-weight: bold;
-}
-.search-results {
-  margin-top: 20px;
-}
-
-.search-results h2 {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.search-results ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.search-results li {
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  background-color: #f5f5f5;
-}
-
-.search-results li h3 {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.search-results li p {
-  margin: 5px 0;
-}
-
   
   /* CSS for footer */
   footer {
