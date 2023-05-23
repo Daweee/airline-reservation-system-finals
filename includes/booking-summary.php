@@ -31,7 +31,10 @@ $conn = $db->getConn();
 
         $totalAmount = $flight->calculateTotalAmount($conn, $selectedFlightID, $adults, $children, $infants);
 
-        echo "<h2>Booking Summary</h2>";
+        $assignedBookingId = $flight->bookingId;
+
+        echo "<h1>Booking Summary</h1><br>";
+        echo "<h2>Booking ID:" . $assignedBookingId . "</h2>";
         echo "<h3>Flight Details</h3>";
         echo "Flight ID: " . $chosenFlight->flight_id . "<br>";
         echo "Origin: " . $chosenFlight->origin . "<br>";

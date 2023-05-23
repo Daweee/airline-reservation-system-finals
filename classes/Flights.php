@@ -12,7 +12,7 @@ class Flights
     public $userReturnDate;
     public $flight_id;
     public $flight_type;
-
+    public $bookingId;
     public $origin;
     public $destination;
     public $departure_date;
