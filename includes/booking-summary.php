@@ -1,4 +1,4 @@
-<?php 
+<?php
 require '../classes/Flights.php';
 require '../classes/Database.php';
 
@@ -7,8 +7,17 @@ $conn = $db->getConn();
 
 ?>
 
-<?php
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Summary</title>
+    <link rel="stylesheet" type="text/css" href="../css/bookingsummary.css">
+</head>
+
+<body>
+    <?php
     session_start();
 
     $flight = new Flights();
@@ -20,40 +29,41 @@ $conn = $db->getConn();
         $guestLastName = $_POST['guestLastName'];
         $streetAddress = $_POST['streetAddress'];
         $guestBirthDate = $_POST['guestBirthDate'];
-    
+
         // Retrieve the selected flight ID from the session
         $selectedFlightID = $_SESSION['selectedFlightID'];
         $adults = $_SESSION['adults'];
         $children = $_SESSION['children'];
         $infants = $_SESSION['infants'];
-    
+
         $chosenFlight = Flights::chosenFlightDetails($conn, $selectedFlightID);
 
         $totalAmount = $flight->calculateTotalAmount($conn, $selectedFlightID, $adults, $children, $infants);
 
         $assignedBookingId = $flight->bookingId;
+    }
+    ?>
 
-        echo "<h1>Booking Summary</h1><br>";
-        echo "<h2>Booking ID:" . $assignedBookingId . "</h2>";
-        echo "<h3>Flight Details</h3>";
-        echo "Flight ID: " . $chosenFlight->flight_id . "<br>";
-        echo "Origin: " . $chosenFlight->origin . "<br>";
-        echo "Destination: " . $chosenFlight->destination . "<br>";
-        echo "Departure Date: " . $chosenFlight->departure_date . "<br>";
-        echo "Return Date: " . ($chosenFlight->return_date !== null ? $chosenFlight->return_date : "N/A") . "<br>";
-        echo "Flight Type: " . $chosenFlight->flight_type . "<br>";
+    <h1>Booking Summary</h1>
+    <h2>Booking ID: <?php echo $assignedBookingId; ?></h2>
 
-        echo "<h3>Guest Details</h3>";
-        echo "Title: " . $guestTitle . "<br>";
-        echo "First Name: " . $guestFirstName . "<br>";
-        echo "Last Name: " . $guestLastName . "<br>";
-        echo "Street Address: " . $streetAddress  . "<br>";
-        echo "Birthdate: " . $guestBirthDate . "<br>";
+    <h3>Flight Details</h3>
+    <p>Flight ID: <?php echo $chosenFlight->flight_id; ?></p>
+    <p>Origin: <?php echo $chosenFlight->origin; ?></p>
+    <p>Destination: <?php echo $chosenFlight->destination; ?></p>
+    <p>Departure Date: <?php echo $chosenFlight->departure_date; ?></p>
+    <p>Return Date: <?php echo ($chosenFlight->return_date !== null ? $chosenFlight->return_date : "N/A"); ?></p>
+    <p>Flight Type: <?php echo $chosenFlight->flight_type; ?></p>
 
-        echo "<h3>Total Amount</h3>";
-        echo "Total: ₱" . $totalAmount . "<br>";
+    <h3>Guest Details</h3>
+    <p>Title: <?php echo $guestTitle; ?></p>
+    <p>First Name: <?php echo $guestFirstName; ?></p>
+    <p>Last Name: <?php echo $guestLastName; ?></p>
+    <p>Street Address: <?php echo $streetAddress; ?></p>
+    <p>Birthdate: <?php echo $guestBirthDate; ?></p>
 
-        unset($_SESSION['selectedFlightID']);
-    }       
+    <h3>Total Amount</h3>
+    <p>Total: ₱<?php echo $totalAmount; ?></p>
+</body>
 
-?>
+</html>
