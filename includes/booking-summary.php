@@ -45,25 +45,72 @@ $conn = $db->getConn();
     ?>
 
     <h1>Booking Summary</h1>
-    <h2>Booking ID: <?php echo $assignedBookingId; ?></h2>
+
+    <table class="summary-table">
+        <tr>
+            <td>
+                <h2>Booking ID:</h2>
+            </td>
+            <td>
+                <h2><?php echo $assignedBookingId; ?></h2>
+            </td>
+        </tr>
+    </table>
 
     <h3>Flight Details</h3>
-    <p>Flight ID: <?php echo $chosenFlight->flight_id; ?></p>
-    <p>Origin: <?php echo $chosenFlight->origin; ?></p>
-    <p>Destination: <?php echo $chosenFlight->destination; ?></p>
-    <p>Departure Date: <?php echo $chosenFlight->departure_date; ?></p>
-    <p>Return Date: <?php echo ($chosenFlight->return_date !== null ? $chosenFlight->return_date : "N/A"); ?></p>
-    <p>Flight Type: <?php echo $chosenFlight->flight_type; ?></p>
+    <table class="summary-table">
+        <tr>
+            <td>Flight ID:</td>
+            <td><?php echo $chosenFlight->flight_id; ?></td>
+        </tr>
+        <tr>
+            <td>Origin:</td>
+            <td><?php echo $chosenFlight->origin; ?></td>
+        </tr>
+        <tr>
+            <td>Destination:</td>
+            <td><?php echo $chosenFlight->destination; ?></td>
+        </tr>
+        <tr>
+            <td>Departure Date:</td>
+            <td><?php echo $chosenFlight->departure_date; ?></td>
+        </tr>
+        <tr>
+            <td>Return Date:</td>
+            <td><?php echo ($chosenFlight->return_date !== null ? $chosenFlight->return_date : "N/A"); ?></td>
+        </tr>
+        <tr>
+            <td>Flight Type:</td>
+            <td><?php echo $chosenFlight->flight_type; ?></td>
+        </tr>
+    </table>
 
     <h3>Guest Details</h3>
-    <p>Title: <?php echo $guestTitle; ?></p>
-    <p>First Name: <?php echo $guestFirstName; ?></p>
-    <p>Last Name: <?php echo $guestLastName; ?></p>
-    <p>Street Address: <?php echo $streetAddress; ?></p>
-    <p>Birthdate: <?php echo $guestBirthDate; ?></p>
+    <table class="summary-table">
+        <tr>
+            <td>Title:</td>
+            <td><?php echo $guestTitle; ?></td>
+        </tr>
+        <tr>
+            <td>First Name:</td>
+            <td><?php echo $guestFirstName; ?></td>
+        </tr>
+        <tr>
+            <td>Last Name:</td>
+            <td><?php echo $guestLastName; ?></td>
+        </tr>
+        <tr>
+            <td>Street Address:</td>
+            <td><?php echo $streetAddress; ?></td>
+        </tr>
+        <tr>
+            <td>Birthdate:</td>
+            <td><?php echo $guestBirthDate; ?></td>
+        </tr>
+    </table>
 
     <h3>Total Amount</h3>
-    <p>Total: ₱<?php echo $totalAmount; ?></p>
+    <p class="total-amount">Total: ₱<span><?php echo $totalAmount; ?></span></p>
 </body>
 
 </html>
