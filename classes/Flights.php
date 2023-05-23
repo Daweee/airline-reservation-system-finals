@@ -12,9 +12,7 @@ class Flights
     public $userReturnDate;
     public $flight_id;
     public $flight_type;
-    public $adults;
-    public $children;
-    public $infants;
+    public $bookingId;
     public $origin;
     public $destination;
     public $departure_date;
@@ -96,25 +94,41 @@ class Flights
         }
     }
 
-    public function addPeople($conn)
-    {
-        if ($this->validate()) {
 
-            $sql = "INSERT INTO booking (adults, children, infants) 
-                    VALUES (:adults, :children, :infants)";
-
-            $stmt = $conn->prepare($sql);
-
-            $stmt->bindValue(':adults', $this->userAdults, PDO::PARAM_INT);
-            $stmt->bindValue(':children', $this->userChildren, PDO::PARAM_INT);
-            $stmt->bindValue(':infants', $this->userInfants, PDO::PARAM_INT);
-
-            if ($stmt->execute()) {
-                $this->bookingId = $conn->lastInsertId();
-                return true;
-            } else {
-                return false;
-            }
+    public static function chosenFlightDetails($conn, $chosenFlightId) {
+        $sql = "SELECT * 
+                FROM flight_schedule 
+                WHERE flight_id = :flight_id";
+    
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':flight_id', $chosenFlightId, PDO::PARAM_INT);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Flights');
+    
+        if ($stmt->execute()) {
+            return $stmt->fetch(PDO::FETCH_CLASS);
         }
+    }
+
+    public function calculateTotalAmount($conn, $chosenFlightId, $adults, $children, $infants) {
+       
+        $sql = "INSERT INTO booking (adults, children, infants, total_price, flight_id)
+                SELECT :adults, :children, :infants,
+                    (:adults * 2000) + (:children * 700) + (:infants * 400), :flight_id";
+    
+        $stmt = $conn->prepare($sql);
+    
+        $stmt->bindValue(':adults', $adults, PDO::PARAM_INT);
+        $stmt->bindValue(':children', $children, PDO::PARAM_INT);
+        $stmt->bindValue(':infants', $infants, PDO::PARAM_INT);
+        $stmt->bindValue(':flight_id', $chosenFlightId, PDO::PARAM_INT);
+        
+        if ($stmt->execute()) {
+            $this->bookingId = $conn->lastInsertId();
+            $totalPrice = ($adults * 2000) + ($children * 700) + ($infants * 400);
+            return $totalPrice;
+        } else {
+            return false;
+        }  
+
     }
 }
