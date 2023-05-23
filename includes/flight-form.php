@@ -1,3 +1,20 @@
+<link rel="stylesheet" href="./css/index.css">
+
+
+<div class="bg-image-1">
+    <div class="text-block">
+        <h2>More than just the destination</h2>
+        <p>Earn Mabuhay Miles and Other Promos.</p>
+    </div>
+</div>
+<div class="bg-image-2">
+    <div class="text-block-2">
+        <h2>Know Your Flight</h2>
+        <p>The latest flight updates to keep you in charge of your trip.</p>
+    </div>
+</div>
+
+
 
 <?php if (!empty($flight->errors)) : ?>
     <ul>
@@ -73,7 +90,6 @@
 </form>
 
 <script>
-  
     var adultsSelect = document.getElementById('adults');
     var childrenSelect = document.getElementById('children');
     var infantsSelect = document.getElementById('infants');

@@ -1,4 +1,4 @@
-<?php 
+<?php
 require '../classes/Flights.php';
 require '../classes/Database.php';
 
@@ -7,8 +7,17 @@ $conn = $db->getConn();
 
 ?>
 
-<?php
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Summary</title>
+    <link rel="stylesheet" type="text/css" href="../css/bookingsummary.css">
+</head>
+
+<body>
+    <?php
     session_start();
 
     $flight = new Flights();
@@ -20,40 +29,88 @@ $conn = $db->getConn();
         $guestLastName = $_POST['guestLastName'];
         $streetAddress = $_POST['streetAddress'];
         $guestBirthDate = $_POST['guestBirthDate'];
-    
+
         // Retrieve the selected flight ID from the session
         $selectedFlightID = $_SESSION['selectedFlightID'];
         $adults = $_SESSION['adults'];
         $children = $_SESSION['children'];
         $infants = $_SESSION['infants'];
-    
+
         $chosenFlight = Flights::chosenFlightDetails($conn, $selectedFlightID);
 
         $totalAmount = $flight->calculateTotalAmount($conn, $selectedFlightID, $adults, $children, $infants);
 
         $assignedBookingId = $flight->bookingId;
+    }
+    ?>
 
-        echo "<h1>Booking Summary</h1><br>";
-        echo "<h2>Booking ID:" . $assignedBookingId . "</h2>";
-        echo "<h3>Flight Details</h3>";
-        echo "Flight ID: " . $chosenFlight->flight_id . "<br>";
-        echo "Origin: " . $chosenFlight->origin . "<br>";
-        echo "Destination: " . $chosenFlight->destination . "<br>";
-        echo "Departure Date: " . $chosenFlight->departure_date . "<br>";
-        echo "Return Date: " . ($chosenFlight->return_date !== null ? $chosenFlight->return_date : "N/A") . "<br>";
-        echo "Flight Type: " . $chosenFlight->flight_type . "<br>";
+    <h1>Booking Summary</h1>
 
-        echo "<h3>Guest Details</h3>";
-        echo "Title: " . $guestTitle . "<br>";
-        echo "First Name: " . $guestFirstName . "<br>";
-        echo "Last Name: " . $guestLastName . "<br>";
-        echo "Street Address: " . $streetAddress  . "<br>";
-        echo "Birthdate: " . $guestBirthDate . "<br>";
+    <table class="summary-table">
+        <tr>
+            <td>
+                <h2>Booking ID:</h2>
+            </td>
+            <td>
+                <h2><?php echo $assignedBookingId; ?></h2>
+            </td>
+        </tr>
+    </table>
 
-        echo "<h3>Total Amount</h3>";
-        echo "Total: ₱" . $totalAmount . "<br>";
+    <h3>Flight Details</h3>
+    <table class="summary-table">
+        <tr>
+            <td>Flight ID:</td>
+            <td><?php echo $chosenFlight->flight_id; ?></td>
+        </tr>
+        <tr>
+            <td>Origin:</td>
+            <td><?php echo $chosenFlight->origin; ?></td>
+        </tr>
+        <tr>
+            <td>Destination:</td>
+            <td><?php echo $chosenFlight->destination; ?></td>
+        </tr>
+        <tr>
+            <td>Departure Date:</td>
+            <td><?php echo $chosenFlight->departure_date; ?></td>
+        </tr>
+        <tr>
+            <td>Return Date:</td>
+            <td><?php echo ($chosenFlight->return_date !== null ? $chosenFlight->return_date : "N/A"); ?></td>
+        </tr>
+        <tr>
+            <td>Flight Type:</td>
+            <td><?php echo $chosenFlight->flight_type; ?></td>
+        </tr>
+    </table>
 
-        unset($_SESSION['selectedFlightID']);
-    }       
+    <h3>Guest Details</h3>
+    <table class="summary-table">
+        <tr>
+            <td>Title:</td>
+            <td><?php echo $guestTitle; ?></td>
+        </tr>
+        <tr>
+            <td>First Name:</td>
+            <td><?php echo $guestFirstName; ?></td>
+        </tr>
+        <tr>
+            <td>Last Name:</td>
+            <td><?php echo $guestLastName; ?></td>
+        </tr>
+        <tr>
+            <td>Street Address:</td>
+            <td><?php echo $streetAddress; ?></td>
+        </tr>
+        <tr>
+            <td>Birthdate:</td>
+            <td><?php echo $guestBirthDate; ?></td>
+        </tr>
+    </table>
 
-?>
+    <h3>Total Amount</h3>
+    <p class="total-amount">Total: ₱<span><?php echo $totalAmount; ?></span></p>
+</body>
+
+</html>

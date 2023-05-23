@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  h2, h3 {
+
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  table.summary-table {
+    width: 250px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  table.summary-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  table.summary-table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .total-amount {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .total-amount span {
+    color: #4CAF50;
+  }

@@ -3,16 +3,20 @@ session_start();
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Check if a flight is selected
-    if (isset($_POST['selectedFlight'])) {
-        // Retrieve the selected flight ID
-        $selectedFlightID = $_POST['selectedFlight'];
+  // Check if a flight is selected
+  if (isset($_POST['selectedFlight'])) {
+    // Retrieve the selected flight ID
+    $selectedFlightID = $_POST['selectedFlight'];
 
-        // Store the flight ID in the session for future use
-        $_SESSION['selectedFlightID'] = $selectedFlightID;
-    }
+    // Store the flight ID in the session for future use
+    $_SESSION['selectedFlightID'] = $selectedFlightID;
+  }
 }
 ?>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../css/guestdetails.css">
+</head>
 
 <form action="/airline-reservation-system-finals/includes/booking-summary.php" method="POST">
   <h2>Guest Details</h2>
@@ -35,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <br>
   <label for="guestBirthDate">Birth date:</label>
   <input type="date" id="guestBirthDate" name="guestBirthDate" required>
-  
+
   <h2>Contact Details</h2>
   <br>
   <label for="streetAddress">Street Address:</label>
@@ -67,8 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <br>
   <label for="confirmEmail">Confirm Email:</label>
   <input type="email" id="confirmEmail" name="confirmEmail" required> <br>
-  
+
   <input type="hidden" name="selectedFlightID" value="<?php echo isset($_SESSION['selectedFlightID']) ? $_SESSION['selectedFlightID'] : ''; ?>">
-  
+
   <input type="submit" value="Submit">
 </form>
