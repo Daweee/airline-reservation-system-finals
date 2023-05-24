@@ -112,5 +112,6 @@ $conn = $db->getConn();
     <h3>Total Amount</h3>
     <p class="total-amount">Total: ₱<span><?php echo $totalAmount; ?></span></p>
 </body>
+<a href="../index.php"><button>Go back Home</button></a>
 
 </html>

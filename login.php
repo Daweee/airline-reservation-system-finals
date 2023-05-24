@@ -13,9 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['is_logged_in'] = true;
 
 
-        Url::redirect('/airline-reservation-system-finals/');
-
-
+        header("Location:admin-page.php");
     } else {
 
         $error = "login incorrect";
