@@ -18,18 +18,18 @@ $conn = require 'includes/db.php';
 
 $flight = new Flights();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 	$conn = require 'includes/db.php';
 
-	$flight->userAdults = isset($_POST['adults']) ? $_POST['adults'] : '';
-	$flight->userChildren = isset($_POST['children']) ? $_POST['children'] : '';
-	$flight->userInfants = isset($_POST['infants']) ? $_POST['infants'] : '';
-	$flight->userFlightType = isset($_POST['flighttype']) ? $_POST['flighttype'] : '';
-	$flight->userOrigin = isset($_POST['origin']) ? $_POST['origin'] : '';
-	$flight->userDestination = isset($_POST['destination']) ? $_POST['destination'] : '';
-	$flight->userDepartDate = isset($_POST['depart']) ? $_POST['depart'] : '';
-	$flight->userReturnDate = isset($_POST['return']) ? $_POST['return'] : '';
+	$flight->userAdults = isset($_GET['adults']) ? $_GET['adults'] : '';
+	$flight->userChildren = isset($_GET['children']) ? $_GET['children'] : '';
+	$flight->userInfants = isset($_GET['infants']) ? $_GET['infants'] : '';
+	$flight->userFlightType = isset($_GET['flighttype']) ? $_GET['flighttype'] : '';
+	$flight->userOrigin = isset($_GET['origin']) ? $_GET['origin'] : '';
+	$flight->userDestination = isset($_GET['destination']) ? $_GET['destination'] : '';
+	$flight->userDepartDate = isset($_GET['depart']) ? $_GET['depart'] : '';
+	$flight->userReturnDate = isset($_GET['return']) ? $_GET['return'] : '';
 
 	$_SESSION['adults'] = $flight->userAdults;
 	$_SESSION['children'] = $flight->userChildren;
