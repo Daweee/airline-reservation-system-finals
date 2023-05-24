@@ -67,16 +67,16 @@ class Flights
 
     public function search($conn)
     {
-
         if ($this->validate()) {
-
-            $sql = "SELECT * 
-                    FROM flight_schedule 
-                    WHERE origin = :origin
-                    AND destination = :destination
-                    AND departure_date = :departDate
-                    AND (return_date = :returnDate OR return_date IS NULL)
-                    AND flight_type = :flightType";
+            $sql = "SELECT fs.flight_id, fs.origin, fs.destination, fs.departure_date, fs.return_date, fs.flight_type,
+            rf.origin AS return_destination, rf.destination AS return_origin, rf.departure_date AS return_departure_date
+            FROM flight_schedule fs
+            LEFT JOIN returning_flight rf ON fs.flight_id = rf.round_trip_flight_id
+            WHERE fs.origin = :origin
+            AND fs.destination = :destination
+            AND fs.departure_date = :departDate
+            AND (fs.return_date = :returnDate OR fs.return_date IS NULL)
+            AND fs.flight_type = :flightType";
 
             $stmt = $conn->prepare($sql);
 
@@ -89,46 +89,77 @@ class Flights
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'Flights');
 
             if ($stmt->execute()) {
-                return $stmt->fetchAll(PDO::FETCH_CLASS, 'Flights');
+                $flights = $stmt->fetchAll(PDO::FETCH_CLASS, 'Flights');
+
+                foreach ($flights as $flight) {
+                    $flight->returning_flight = $this->getReturningFlights($conn, $flight->flight_id);
+                }
+
+                return $flights;
             }
         }
     }
 
+    private function getReturningFlights($conn, $roundTripFlightId)
+    {
+        $sql = "SELECT * 
+        FROM returning_flight 
+        WHERE round_trip_flight_id = :roundTripFlightId
+        AND origin = :returnDestination
+        AND destination = :returnOrigin
+        AND departure_date = :returnDepartureDate";
 
-    public static function chosenFlightDetails($conn, $chosenFlightId) {
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindValue(':roundTripFlightId', $roundTripFlightId, PDO::PARAM_INT);
+        $stmt->bindValue(':returnOrigin', $this->userOrigin, PDO::PARAM_STR);
+        $stmt->bindValue(':returnDestination', $this->userDestination, PDO::PARAM_STR);
+        $stmt->bindValue(':returnDepartureDate', $this->userReturnDate, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Flights');
+
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_CLASS, 'Flights');
+        }
+    }
+
+
+
+    public static function chosenFlightDetails($conn, $chosenFlightId)
+    {
         $sql = "SELECT * 
                 FROM flight_schedule 
                 WHERE flight_id = :flight_id";
-    
+
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':flight_id', $chosenFlightId, PDO::PARAM_INT);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Flights');
-    
+
         if ($stmt->execute()) {
             return $stmt->fetch(PDO::FETCH_CLASS);
         }
     }
 
-    public function calculateTotalAmount($conn, $chosenFlightId, $adults, $children, $infants) {
-       
+    public function calculateTotalAmount($conn, $chosenFlightId, $adults, $children, $infants)
+    {
+
         $sql = "INSERT INTO booking (adults, children, infants, total_price, flight_id)
                 SELECT :adults, :children, :infants,
                     (:adults * 2000) + (:children * 700) + (:infants * 400), :flight_id";
-    
+
         $stmt = $conn->prepare($sql);
-    
+
         $stmt->bindValue(':adults', $adults, PDO::PARAM_INT);
         $stmt->bindValue(':children', $children, PDO::PARAM_INT);
         $stmt->bindValue(':infants', $infants, PDO::PARAM_INT);
         $stmt->bindValue(':flight_id', $chosenFlightId, PDO::PARAM_INT);
-        
+
         if ($stmt->execute()) {
             $this->bookingId = $conn->lastInsertId();
             $totalPrice = ($adults * 2000) + ($children * 700) + ($infants * 400);
             return $totalPrice;
         } else {
             return false;
-        }  
-
+        }
     }
 }

@@ -30,6 +30,7 @@
                 <tbody>
                     <?php if ($searchResults !== null && count($searchResults) > 0) : ?>
                         <?php foreach ($searchResults as $result) : ?>
+                            <?php $returningFlights = $result->returning_flight; ?>
                             <tr>
                                 <td><?= $result->flight_id ?></td>
                                 <td><?= $result->origin ?></td>
@@ -41,9 +42,21 @@
                                     <input type="radio" name="selectedFlight" value="<?= $result->flight_id ?>">
                                 </td>
                             </tr>
+                            <?php if (!empty($returningFlights)) : ?>
+                                <?php foreach ($returningFlights as $returningFlight) : ?>
+                                    <tr>
+                                        <td><?= $returningFlight->flight_id ?></td>
+                                        <td><?= $returningFlight->origin ?></td>
+                                        <td><?= $returningFlight->destination ?></td>
+                                        <td><?= $returningFlight->departure_date ?></td>
+                                        <td></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </tbody>
+
             </table>
             <label for="agreementCheckbox">
                 <input type="checkbox" id="agreementCheckbox"> I accept the agreement

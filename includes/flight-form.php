@@ -24,7 +24,7 @@
     </ul>
 <?php endif; ?>
 
-<form method="post">
+<form method="get">
     <div>
         <label for="flighttype">Flight Type:</label>
         <select name="flighttype" id="flighttype">

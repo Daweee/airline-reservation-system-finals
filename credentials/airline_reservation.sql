@@ -67,7 +67,19 @@ INSERT INTO `flight_schedule` (`flight_id`, `origin`, `destination`, `departure_
 (22, 'Cebu', 'Davao', '2023-05-31', '2023-06-28', 'roundtrip');
 
 -- --------------------------------------------------------
+CREATE TABLE `returning_flight` (
+  `flight_id` int(11) NOT NULL,
+  `round_trip_flight_id` int(11) NOT NULL,
+  `origin` varchar(128) NOT NULL,
+  `destination` varchar(128) NOT NULL,
+  `departure_date` date NOT NULL,
+  `flight_type` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+INSERT INTO `returning_flight` (`flight_id`, `round_trip_flight_id`, `origin`, `destination`, `departure_date`, `flight_type`) VALUES
+(1, 14, 'Manila', 'Cebu', '2023-05-31', 'roundtrip'),
+(2, 15, 'Davao', 'Cebu', '2023-05-30', 'roundtrip'),
+(3, 21, 'Manila', 'Cebu', '2023-05-31', 'roundtrip');
 --
 -- Table structure for table `user`
 --
