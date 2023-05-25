@@ -84,6 +84,12 @@ INSERT INTO `returning_flight` (`flight_id`, `round_trip_flight_id`, `origin`, `
 -- Table structure for table `user`
 --
 
+SELECT * FROM flight_schedule;
+
+
+SELECT * FROM returning_flight;
+
+
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -98,12 +104,22 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `username`, `password`, `first_name`, `last_name`, `address`) VALUES
-(1, 'XxDragonSlayerxX', '$2y$10$ugPzQPuQBJevsf8Vn8yDO.Qhv.9L/ByFdd1kC3ARlDNV5ysRE8wJm', 'Christian', 'Morales', 'Cebu');
+(1, 'XxDragonSlayerxX', '$2y$10$ugPzQPuQBJevsf8Vn8yDO.Qhv.9L/ByFdd1kC3ARlDNV5ysRE8wJm', 'Christian', 'Morales', 'Cebu'),
+(2, 'admin', '$2y$10$ugPzQPuQBJevsf8Vn8yDO.Qhv.9L/ByFdd1kC3ARlDNV5ysRE8wJm', 'John', 'Lock', 'USA');
 
 --
 -- Indexes for dumped tables
 --
+CREATE TABLE `admin_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(128) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
+INSERT INTO `admin_users` (`username`, `password`) VALUES
+('admin', 'admin123');
 --
 -- Indexes for table `booking`
 --
