@@ -15,7 +15,7 @@
     </header>
     <div></div>
     <main class="main">
-        <form action="/airline-reservation-system-finals/includes/guest-details.php" method="post" onsubmit="return validateForm();">
+        <form action="/airline-reservation-system-finals/airline-reservation-system-finals/includes/guest-details.php" method="post" onsubmit="return validateForm();">
             <table>
                 <thead>
                     <tr>
@@ -78,7 +78,7 @@
                 }
             }
         </script>
-        <?php require '../includes/footer.php'; ?>
+        <?php require './includes/footer.php'; ?>
     </main>
 </body>
 
